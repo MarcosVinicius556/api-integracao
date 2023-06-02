@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,14 +18,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table( name = "aparelhoexame", uniqueConstraints = @UniqueConstraint(columnNames = {"aparelhoid", "examecod"}) )
-@EqualsAndHashCode
 @ToString
 public class AparelhoExame implements Serializable {
 
@@ -39,8 +39,9 @@ public class AparelhoExame implements Serializable {
 	
     @Getter
     @Setter
-	@ManyToOne( fetch = FetchType.EAGER )
+	@ManyToOne( fetch = FetchType.LAZY )
 	@JoinColumn( name = "aparelhoid", nullable = false )
+	@JsonIgnore
 	private Aparelho aparelho;
 	
     @Getter
@@ -69,4 +70,28 @@ public class AparelhoExame implements Serializable {
 		this.exameCod = exameCod;
 		this.macros = macros;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AparelhoExame other = (AparelhoExame) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	
 }

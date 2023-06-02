@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
 
 import com.info.integracao.entities.Aparelho;
 import com.info.integracao.entities.AparelhoCampos;
@@ -15,6 +16,7 @@ import com.info.integracao.repositories.AparelhoExameRepository;
 import com.info.integracao.repositories.AparelhoLogRepository;
 import com.info.integracao.repositories.AparelhoRepository;
 
+@Configuration
 public class Config implements CommandLineRunner{
 
     @Autowired

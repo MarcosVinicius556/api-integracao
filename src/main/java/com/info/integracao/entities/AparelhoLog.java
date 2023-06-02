@@ -3,6 +3,8 @@ package com.info.integracao.entities;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -39,6 +41,7 @@ public class AparelhoLog implements Serializable {
     @Setter
 	@OneToOne( fetch = FetchType.EAGER )
 	@JoinColumn( name = "aparelhoid", nullable = false )
+	@JsonIgnore
 	private Aparelho aparelho;
 	
     @Getter

@@ -14,14 +14,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table( name = "aparelho" )
-@EqualsAndHashCode
 @ToString
 public class Aparelho implements Serializable {
 
@@ -141,7 +139,7 @@ public class Aparelho implements Serializable {
 	
     @Getter
     @Setter
-	@OneToOne( mappedBy = "aparelho", fetch = FetchType.LAZY )
+	@OneToOne( mappedBy = "aparelho", fetch = FetchType.EAGER )
 	private AparelhoLog aparelhoLog;
 	
 	public Aparelho() {
@@ -192,5 +190,29 @@ public class Aparelho implements Serializable {
 		this.tipoInterface = tipoInterface;
 		this.status = status;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aparelho other = (Aparelho) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	
 
 }
